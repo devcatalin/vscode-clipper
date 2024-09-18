@@ -1,0 +1,77 @@
+{
+  "name": "clipper",
+  "displayName": "Clipper",
+  "description": "Copy various project elements like file trees and file contents to your clipboard.",
+  "version": "0.0.3",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/devcatalin/vscode-clipper"
+  },
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "clipper.copyFileTree",
+        "title": "Clipper: Copy File Tree"
+      },
+      {
+        "command": "clipper.copyFileTreeDepth",
+        "title": "Clipper: Copy File Tree with Depth"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "clipper.copyFileTree",
+          "group": "6_copypath"
+        },
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "clipper.copyFileTreeDepth",
+          "group": "6_copypath"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "clipper.copyFileTree",
+          "title": "Clipper: Copy File Tree"
+        },
+        {
+          "command": "clipper.copyFileTreeDepth",
+          "title": "Clipper: Copy File Tree with Depth"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test",
+    "package": "npx @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.93.0",
+    "@typescript-eslint/eslint-plugin": "^8.3.0",
+    "@typescript-eslint/parser": "^8.3.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.9.1",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "ignore": "^6.0.2"
+  }
+}
