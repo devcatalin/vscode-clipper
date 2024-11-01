@@ -47,8 +47,8 @@ export const slice = createSlice({
       console.log("[Clipper] Removing clip:", action.payload);
       state.clips = state.clips.filter((clip) => clip.id !== action.payload);
     },
-    clearAllClips: (state) => {
-      console.log("[Clipper] Clearing all clips");
+    removeAllClips: (state) => {
+      console.log("[Clipper] Removing all clips");
       state.clips = [];
     },
     copyAllClips: (state) => {
@@ -64,4 +64,4 @@ export const slice = createSlice({
   },
 });
 
-export const { addClip, updateClip, removeClip, clearAllClips, copyAllClips } = slice.actions;
+export const { addClip, updateClip, removeClip, removeAllClips, copyAllClips } = slice.actions;

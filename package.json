@@ -2,7 +2,7 @@
   "name": "clipper",
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -50,6 +50,14 @@
       {
         "command": "clipper.createClip",
         "title": "Clipper: Create Clip"
+      },
+      {
+        "command": "clipper.copyAllClips",
+        "title": "Clipper: Copy All Clips"
+      },
+      {
+        "command": "clipper.removeAllClips",
+        "title": "Clipper: Remove All Clips"
       }
     ],
     "menus": {
@@ -81,6 +89,14 @@
         {
           "command": "clipper.createClip",
           "title": "Clipper: Create Clip"
+        },
+        {
+          "command": "clipper.copyAllClips",
+          "title": "Clipper: Copy All Clips"
+        },
+        {
+          "command": "clipper.removeAllClips",
+          "title": "Clipper: Remove All Clips"
         }
       ]
     }
