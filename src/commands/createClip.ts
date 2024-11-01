@@ -1,4 +1,6 @@
 import * as vscode from "vscode";
+import { addClip } from "../sidebar/slice";
+import { store } from "../sidebar/store";
 
 export async function createClip() {
   const editor = vscode.window.activeTextEditor;
@@ -20,7 +22,6 @@ export async function createClip() {
   const documentText = !selection.isEmpty ? editor.document.getText(selection) : editor.document.getText();
   const languageId = editor.document.languageId;
   const fileName = editor.document.fileName;
-  const displayName = fileName.split(/[\\/]/).pop() || fileName;
 
   let processedDocumentText = documentText;
   if (userInput.toLowerCase().includes("line")) {
@@ -29,10 +30,8 @@ export async function createClip() {
     processedDocumentText = lines.map((line, index) => `${startLine + index}  ${line}`).join("\n");
   }
 
-  const output = `${userInput}\n\n[${displayName}](${fileName})\n\`\`\`${languageId}\n${processedDocumentText}\n\`\`\``;
+  store.dispatch(addClip({ message: userInput, filePath: fileName, code: processedDocumentText, languageId }));
 
-  await vscode.env.clipboard.writeText(output);
-
-  const selectionMsg = selection.isEmpty ? "full document" : "selected text";
-  vscode.window.showInformationMessage(`Copied user input and ${selectionMsg} to clipboard.`);
+  const selectionMsg = selection.isEmpty ? "full content" : "selection";
+  vscode.window.showInformationMessage(`Created clip from ${fileName} ${selectionMsg}.`);
 }

@@ -1,7 +1,8 @@
 import * as vscode from "vscode";
 import { readFileContent } from "../utils/file";
-import { store, setStoreWebview, addClip, updateClip, removeClip } from "./store";
+import { store, setStoreWebview } from "./store";
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
+import { slice } from "./slice";
 
 type ActionCreator = ActionCreatorWithPayload<any> | ActionCreatorWithoutPayload;
 type ActionCreatorMap = {
@@ -13,7 +14,6 @@ export const createMessageHandler = (actionCreators: ActionCreatorMap) => {
     if (message.type === "dispatch") {
       const { actionType, payload } = message.value;
       const actionCreator = actionCreators[actionType];
-
       if (actionCreator) {
         store.dispatch(actionCreator(payload));
       } else {
@@ -27,15 +27,8 @@ export const createSidebarProvider = (extensionUri: vscode.Uri): vscode.WebviewV
   resolveWebviewView: (webviewView: vscode.WebviewView) => {
     webviewView.webview.options = { enableScripts: true };
     webviewView.webview.html = readFileContent(extensionUri, "sidebar/sidebar.html");
-
     setStoreWebview(webviewView.webview);
-
-    const messageHandler = createMessageHandler({
-      addClip,
-      updateClip,
-      removeClip,
-    });
-
+    const messageHandler = createMessageHandler(slice.actions);
     webviewView.webview.onDidReceiveMessage(messageHandler);
   },
 });

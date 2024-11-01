@@ -8,6 +8,32 @@
         font-family: var(--vscode-font-family);
         padding: 10px;
       }
+      .actions {
+        margin-bottom: 16px;
+        display: flex;
+        gap: 8px;
+      }
+      .btn {
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 0.9em;
+        border: 1px solid transparent;
+      }
+      .btn-primary {
+        background-color: var(--vscode-button-background);
+        color: var(--vscode-button-foreground);
+      }
+      .btn-primary:hover {
+        background-color: var(--vscode-button-hoverBackground);
+      }
+      .btn-secondary {
+        background-color: var(--vscode-button-secondaryBackground);
+        color: var(--vscode-button-secondaryForeground);
+      }
+      .btn-secondary:hover {
+        background-color: var(--vscode-button-secondaryHoverBackground);
+      }
       .clip {
         background-color: var(--vscode-editor-background);
         border: 1px solid var(--vscode-widget-border);
@@ -54,6 +80,10 @@
     </style>
   </head>
   <body>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="onCopyAllClips()">📋 Copy All Clips</button>
+      <button class="btn btn-secondary" onclick="onClearAllClips()">🗑️ Remove All Clips</button>
+    </div>
     <div id="app"></div>
     <script>
       const vscode = acquireVsCodeApi();
@@ -67,6 +97,14 @@
 
       function getFirstNLines(code, n = 5) {
         return code.split("\n").slice(0, n).join("\n");
+      }
+
+      function onCopyAllClips() {
+        dispatch("copyAllClips");
+      }
+
+      function onClearAllClips() {
+        dispatch("clearAllClips");
       }
 
       function renderClip(clip) {
