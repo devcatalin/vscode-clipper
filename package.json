@@ -2,7 +2,7 @@
   "name": "clipper",
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -44,8 +44,8 @@
         "title": "Clipper: Copy File Tree with Depth"
       },
       {
-        "command": "clipper.copyOpenFiles",
-        "title": "Clipper: Copy Open Files"
+        "command": "clipper.copyOpenEditors",
+        "title": "Clipper: Copy Open Editors"
       },
       {
         "command": "clipper.createClip",
@@ -63,11 +63,6 @@
           "when": "explorerResourceIsFolder",
           "command": "clipper.copyFileTreeDepth",
           "group": "6_copypath"
-        },
-        {
-          "when": "explorerResourceIsFolder",
-          "command": "clipper.CopyOpenFiles",
-          "group": "6_copypath"
         }
       ],
       "commandPalette": [
@@ -80,8 +75,8 @@
           "title": "Clipper: Copy File Tree with Depth"
         },
         {
-          "command": "clipper.copyOpenFiles",
-          "title": "Clipper: Copy Open Files"
+          "command": "clipper.copyOpenEditors",
+          "title": "Clipper: Copy Open Editors"
         },
         {
           "command": "clipper.createClip",
@@ -112,8 +107,6 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.3.0",
-    "handlebars": "^4.7.8",
-    "ignore": "^6.0.2",
-    "zustand": "^5.0.1"
+    "ignore": "^6.0.2"
   }
 }

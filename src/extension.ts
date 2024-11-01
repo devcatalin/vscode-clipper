@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import { createSidebarProvider } from "./sidebar";
 import { copyFileTree } from "./commands/copyFileTree";
 import { copyFileTreeDepth } from "./commands/copyFileTreeDepth";
-import { copyOpenFiles } from "./commands/copyOpenFiles";
+import { copyOpenEditors } from "./commands/copyOpenEditors";
 import { createClip } from "./commands/createClip";
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,7 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
   const commandDisposables = [
     vscode.commands.registerCommand("clipper.copyFileTree", copyFileTree),
     vscode.commands.registerCommand("clipper.copyFileTreeDepth", copyFileTreeDepth),
-    vscode.commands.registerCommand("clipper.copyOpenFiles", copyOpenFiles),
+    vscode.commands.registerCommand("clipper.copyOpenEditors", copyOpenEditors),
     vscode.commands.registerCommand("clipper.createClip", createClip),
     vscode.window.registerWebviewViewProvider("clipper.cardsView", sidebarProvider),
   ];

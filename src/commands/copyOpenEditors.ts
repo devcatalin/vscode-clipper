@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export async function copyOpenFiles() {
+export async function copyOpenEditors() {
   const openDocs = vscode.workspace.textDocuments.filter((doc) => {
     return (
       !doc.uri.scheme.includes("output") &&
@@ -11,7 +11,7 @@ export async function copyOpenFiles() {
   });
 
   if (openDocs.length === 0) {
-    vscode.window.showInformationMessage("No open files found.");
+    vscode.window.showInformationMessage("No open editors found.");
     return;
   }
 
@@ -32,6 +32,6 @@ export async function copyOpenFiles() {
 
   await vscode.env.clipboard.writeText(output);
   vscode.window.showInformationMessage(
-    `Copied content from ${openDocs.length} file${openDocs.length === 1 ? "" : "s"} to clipboard.`
+    `Copied content from ${openDocs.length} editor${openDocs.length === 1 ? "" : "s"} to clipboard.`
   );
 }
