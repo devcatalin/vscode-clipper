@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { readFileContent } from "../utils/file";
-import { store, setStoreWebview, addCard, updateCard, removeCard, init } from "./store";
+import { store, setStoreWebview, addCard, updateCard, removeCard } from "./store";
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from "@reduxjs/toolkit";
 
 type ActionCreator = ActionCreatorWithPayload<any> | ActionCreatorWithoutPayload;
@@ -31,7 +31,6 @@ export const createSidebarProvider = (extensionUri: vscode.Uri): vscode.WebviewV
     setStoreWebview(webviewView.webview);
 
     const messageHandler = createMessageHandler({
-      init,
       addCard,
       updateCard,
       removeCard,

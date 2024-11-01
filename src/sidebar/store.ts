@@ -8,23 +8,33 @@ interface Card {
 }
 
 interface SidebarState {
-  isInitialized: boolean;
   cards: Card[];
 }
 
 const initialState: SidebarState = {
-  isInitialized: false,
-  cards: [],
+  cards: [
+    {
+      id: 1,
+      title: "Card 1",
+      content: "This is the first card",
+    },
+    {
+      id: 2,
+      title: "Card 2",
+      content: "This is the second card",
+    },
+    {
+      id: 3,
+      title: "Card 3",
+      content: "This is the third card",
+    },
+  ],
 };
 
 const slice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    init: (state) => {
-      console.log("[Clipper] Initializing state");
-      state.isInitialized = true;
-    },
     addCard: (state, action: PayloadAction<Omit<Card, "id">>) => {
       console.log("[Clipper] Adding card:", action.payload);
       const newId = Math.max(...state.cards.map((card) => card.id), 0) + 1;
@@ -49,7 +59,7 @@ const slice = createSlice({
   },
 });
 
-export const { init, addCard, updateCard, removeCard } = slice.actions;
+export const { addCard, updateCard, removeCard } = slice.actions;
 
 export const store = configureStore({
   reducer: slice.reducer,
