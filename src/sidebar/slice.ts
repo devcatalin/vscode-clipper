@@ -50,6 +50,7 @@ export const slice = createSlice({
     removeAllClips: (state) => {
       console.log("[Clipper] Removing all clips");
       state.clips = [];
+      vscode.window.showInformationMessage(`Removed all clips.`);
     },
     copyAllClips: (state) => {
       console.log("[Clipper] Copying all clips");

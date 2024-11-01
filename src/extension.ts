@@ -4,8 +4,9 @@ import { copyFileTree } from "./commands/copyFileTree";
 import { copyFileTreeDepth } from "./commands/copyFileTreeDepth";
 import { copyOpenEditors } from "./commands/copyOpenEditors";
 import { createClip } from "./commands/createClip";
-import { copyAllClips } from "./commands/copyAllClips";
-import { removeAllClips } from "./commands/removeAllClips";
+
+import { store } from "./sidebar/store";
+import { copyAllClips, removeAllClips } from "./sidebar/slice";
 
 export function activate(context: vscode.ExtensionContext) {
   const sidebarProvider = createSidebarProvider(context.extensionUri);
@@ -15,8 +16,8 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("clipper.copyFileTreeDepth", copyFileTreeDepth),
     vscode.commands.registerCommand("clipper.copyOpenEditors", copyOpenEditors),
     vscode.commands.registerCommand("clipper.createClip", createClip),
-    vscode.commands.registerCommand("clipper.copyAllClips", copyAllClips),
-    vscode.commands.registerCommand("clipper.removeAllClips", removeAllClips),
+    vscode.commands.registerCommand("clipper.copyAllClips", () => store.dispatch(copyAllClips())),
+    vscode.commands.registerCommand("clipper.removeAllClips", () => store.dispatch(removeAllClips())),
     vscode.window.registerWebviewViewProvider("clipper.cardsView", sidebarProvider),
   ];
 

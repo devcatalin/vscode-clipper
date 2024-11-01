@@ -82,7 +82,7 @@
   <body>
     <div class="actions">
       <button class="btn btn-primary" onclick="onCopyAllClips()">📋 Copy All Clips</button>
-      <button class="btn btn-secondary" onclick="onClearAllClips()">🗑️ Remove All Clips</button>
+      <button class="btn btn-secondary" onclick="onRemoveAllClips()">🗑️ Remove All Clips</button>
     </div>
     <div id="app"></div>
     <script>
@@ -103,8 +103,8 @@
         dispatch("copyAllClips");
       }
 
-      function onClearAllClips() {
-        dispatch("clearAllClips");
+      function onRemoveAllClips() {
+        dispatch("removeAllClips");
       }
 
       function renderClip(clip) {
