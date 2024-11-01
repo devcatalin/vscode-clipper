@@ -8,29 +8,47 @@
         font-family: var(--vscode-font-family);
         padding: 10px;
       }
-      .card {
+      .clip {
         background-color: var(--vscode-editor-background);
         border: 1px solid var(--vscode-widget-border);
         border-radius: 4px;
-        padding: 10px;
-        margin-bottom: 10px;
+        padding: 12px;
+        margin-bottom: 16px;
         position: relative;
       }
-      .card-title {
-        font-weight: bold;
-        margin-bottom: 5px;
+      .clip-message {
+        color: var(--vscode-foreground);
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+      .clip-filepath {
+        color: var(--vscode-textLink-foreground);
+        font-family: var(--vscode-editor-font-family);
+        font-size: 0.9em;
+        margin-bottom: 8px;
+      }
+      .clip-code {
+        background-color: var(--vscode-textCodeBlock-background);
+        padding: 8px;
+        border-radius: 3px;
+        font-family: var(--vscode-editor-font-family);
+        font-size: 0.9em;
+        white-space: pre;
+        overflow-x: auto;
       }
       .delete-btn {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 8px;
+        right: 8px;
         background-color: transparent;
         border: none;
         color: var(--vscode-editor-foreground);
         cursor: pointer;
         padding: 4px 8px;
+        opacity: 0.6;
       }
       .delete-btn:hover {
+        opacity: 1;
         color: var(--vscode-errorForeground);
       }
     </style>
@@ -47,39 +65,48 @@
         });
       }
 
-      function renderCard(card) {
-        const cardDiv = document.createElement("div");
-        cardDiv.className = "card";
-        cardDiv.id = `card-${card.id}`;
+      function getFirstNLines(code, n = 5) {
+        return code.split("\n").slice(0, n).join("\n");
+      }
 
-        const titleDiv = document.createElement("div");
-        titleDiv.className = "card-title";
-        titleDiv.textContent = card.title;
-        cardDiv.appendChild(titleDiv);
+      function renderClip(clip) {
+        const clipDiv = document.createElement("div");
+        clipDiv.className = "clip";
+        clipDiv.id = `clip-${clip.id}`;
 
-        const contentDiv = document.createElement("div");
-        contentDiv.className = "card-content";
-        contentDiv.textContent = card.content;
-        cardDiv.appendChild(contentDiv);
+        const messageDiv = document.createElement("div");
+        messageDiv.className = "clip-message";
+        messageDiv.textContent = clip.message;
+        clipDiv.appendChild(messageDiv);
+
+        const filePathDiv = document.createElement("div");
+        filePathDiv.className = "clip-filepath";
+        filePathDiv.textContent = clip.filePath;
+        clipDiv.appendChild(filePathDiv);
+
+        const codePre = document.createElement("pre");
+        codePre.className = "clip-code";
+        codePre.textContent = getFirstNLines(clip.code);
+        clipDiv.appendChild(codePre);
 
         const deleteBtn = document.createElement("button");
         deleteBtn.className = "delete-btn";
         deleteBtn.textContent = "✕";
-        deleteBtn.addEventListener("click", () => onClickDeleteCard(card.id));
-        cardDiv.appendChild(deleteBtn);
+        deleteBtn.addEventListener("click", () => onClickDeleteClip(clip.id));
+        clipDiv.appendChild(deleteBtn);
 
-        return cardDiv;
+        return clipDiv;
       }
 
-      function onClickDeleteCard(id) {
-        dispatch("removeCard", id);
+      function onClickDeleteClip(id) {
+        dispatch("removeClip", id);
       }
 
       function render(state) {
         const app = document.getElementById("app");
         app.innerHTML = "";
-        state.cards.forEach((card) => {
-          app.appendChild(renderCard(card));
+        state.clips.forEach((clip) => {
+          app.appendChild(renderClip(clip));
         });
       }
 

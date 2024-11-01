@@ -1,32 +1,26 @@
 import * as vscode from "vscode";
 import { createSlice, configureStore, PayloadAction } from "@reduxjs/toolkit";
 
-interface Card {
+interface Clip {
   id: number;
-  title: string;
-  content: string;
+  message: string;
+  filePath: string;
+  code: string;
+  languageId: string;
 }
 
 interface SidebarState {
-  cards: Card[];
+  clips: Clip[];
 }
 
 const initialState: SidebarState = {
-  cards: [
+  clips: [
     {
       id: 1,
-      title: "Card 1",
-      content: "This is the first card",
-    },
-    {
-      id: 2,
-      title: "Card 2",
-      content: "This is the second card",
-    },
-    {
-      id: 3,
-      title: "Card 3",
-      content: "This is the third card",
+      message: "Example clip",
+      filePath: "/example/path/file.ts",
+      code: "function example() {\n  console.log('hello');\n  return true;\n}\n\nexample();",
+      languageId: "typescript",
     },
   ],
 };
@@ -35,31 +29,31 @@ const slice = createSlice({
   name: "main",
   initialState,
   reducers: {
-    addCard: (state, action: PayloadAction<Omit<Card, "id">>) => {
-      console.log("[Clipper] Adding card:", action.payload);
-      const newId = Math.max(...state.cards.map((card) => card.id), 0) + 1;
-      state.cards.push({
+    addClip: (state, action: PayloadAction<Omit<Clip, "id">>) => {
+      console.log("[Clipper] Adding clip:", action.payload);
+      const newId = Math.max(...state.clips.map((clip) => clip.id), 0) + 1;
+      state.clips.push({
         id: newId,
         ...action.payload,
       });
     },
-    updateCard: (state, action: PayloadAction<{ id: number; updates: Partial<Card> }>) => {
-      console.log("[Clipper] Updating card:", action.payload);
-      const card = state.cards.find((c) => c.id === action.payload.id);
-      if (card) {
-        Object.assign(card, action.payload.updates);
+    updateClip: (state, action: PayloadAction<{ id: number; updates: Partial<Clip> }>) => {
+      console.log("[Clipper] Updating clip:", action.payload);
+      const clip = state.clips.find((c) => c.id === action.payload.id);
+      if (clip) {
+        Object.assign(clip, action.payload.updates);
       } else {
-        console.warn("[Clipper] Card not found for update:", action.payload.id);
+        console.warn("[Clipper] Clip not found for update:", action.payload.id);
       }
     },
-    removeCard: (state, action: PayloadAction<number>) => {
-      console.log("[Clipper] Removing card:", action.payload);
-      state.cards = state.cards.filter((card) => card.id !== action.payload);
+    removeClip: (state, action: PayloadAction<number>) => {
+      console.log("[Clipper] Removing clip:", action.payload);
+      state.clips = state.clips.filter((clip) => clip.id !== action.payload);
     },
   },
 });
 
-export const { addCard, updateCard, removeCard } = slice.actions;
+export const { addClip, updateClip, removeClip } = slice.actions;
 
 export const store = configureStore({
   reducer: slice.reducer,
