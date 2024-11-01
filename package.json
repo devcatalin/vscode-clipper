@@ -2,7 +2,7 @@
   "name": "clipper",
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
-  "version": "0.0.5",
+  "version": "0.0.10",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -16,6 +16,24 @@
   },
   "main": "./out/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "clipper-sidebar",
+          "title": "Clipper",
+          "icon": "resources/clipper.svg"
+        }
+      ]
+    },
+    "views": {
+      "clipper-sidebar": [
+        {
+          "type": "webview",
+          "id": "clipper.cardsView",
+          "name": "Clipper Cards"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "clipper.copyFileTree",
