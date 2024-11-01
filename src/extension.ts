@@ -2,10 +2,10 @@ import * as vscode from "vscode";
 import { copyFileTree } from "./commands/copyFileTree";
 import { copyFileTreeDepth } from "./commands/copyFileTreeDepth";
 import { copyOpenFiles } from "./commands/copyOpenFiles";
-import { SidebarProvider } from "./SidebarProvider";
+import { createSidebarProvider } from "./sidebar";
 
 export function activate(context: vscode.ExtensionContext) {
-  const sidebarProvider = new SidebarProvider(context.extensionUri);
+  const sidebarProvider = createSidebarProvider(context.extensionUri);
 
   const commandDisposables = [
     vscode.commands.registerCommand("clipper.copyFileTree", copyFileTree),
