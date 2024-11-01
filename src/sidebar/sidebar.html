@@ -48,25 +48,37 @@
       }
 
       function renderCard(card) {
-        const div = document.createElement("div");
-        div.className = "card";
-        div.id = `card-${card.id}`;
-        div.innerHTML = `
-          <div class="card-title">${card.title}</div>
-          <div class="card-content">${card.content}</div>
-          <button class="delete-btn" onclick="onClickDeleteCard(${card.id})">✕</button>
-        `;
-        return div;
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "card";
+        cardDiv.id = `card-${card.id}`;
+
+        const titleDiv = document.createElement("div");
+        titleDiv.className = "card-title";
+        titleDiv.textContent = card.title;
+        cardDiv.appendChild(titleDiv);
+
+        const contentDiv = document.createElement("div");
+        contentDiv.className = "card-content";
+        contentDiv.textContent = card.content;
+        cardDiv.appendChild(contentDiv);
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-btn";
+        deleteBtn.textContent = "✕";
+        deleteBtn.addEventListener("click", () => onClickDeleteCard(card.id));
+        cardDiv.appendChild(deleteBtn);
+
+        return cardDiv;
       }
 
       function onClickDeleteCard(id) {
         dispatch("removeCard", id);
       }
 
-      function render(cards) {
+      function render(state) {
         const app = document.getElementById("app");
         app.innerHTML = "";
-        cards.forEach((card) => {
+        state.cards.forEach((card) => {
           app.appendChild(renderCard(card));
         });
       }

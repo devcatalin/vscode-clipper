@@ -82,9 +82,9 @@ export const setStoreWebview = (webview: vscode.Webview) => {
   try {
     currentWebview.postMessage({
       type: "render",
-      value: initialState.cards,
+      value: initialState,
     });
-    console.log("[Clipper] Initial state sent to webview:", initialState.cards);
+    console.log("[Clipper] Initial state sent to webview:", initialState);
   } catch (error) {
     console.error("[Clipper] Error sending initial state:", error);
   }
@@ -93,11 +93,11 @@ export const setStoreWebview = (webview: vscode.Webview) => {
 store.subscribe(() => {
   if (currentWebview) {
     const state = store.getState();
-    console.log("[Clipper] State updated, sending to webview:", state.cards);
+    console.log("[Clipper] State updated, sending to webview:", state);
     try {
       currentWebview.postMessage({
         type: "render",
-        value: state.cards,
+        value: state,
       });
     } catch (error) {
       console.error("[Clipper] Error sending state update:", error);
