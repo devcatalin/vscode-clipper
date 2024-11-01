@@ -2,7 +2,7 @@
   "name": "clipper",
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
-  "version": "0.0.16",
+  "version": "0.0.19",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -111,7 +111,9 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.3.0",
     "handlebars": "^4.7.8",
-    "ignore": "^6.0.2"
+    "ignore": "^6.0.2",
+    "zustand": "^5.0.1"
   }
 }
