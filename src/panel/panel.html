@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="${styleUri}" />
+  </head>
+  <body>
+    <div class="panel-container">
+      <div class="actions">
+        <button class="btn btn-primary" onclick="onCopyAllClips()">📋 Copy All Clips</button>
+        <button class="btn btn-primary" onclick="onRemoveAllClips()">🗑️ Clear All</button>
+      </div>
+      <div id="app" class="clips-grid"></div>
+    </div>
+    <script src="${baseScriptUri}"></script>
+    <script src="${panelScriptUri}"></script>
+  </body>
+</html>

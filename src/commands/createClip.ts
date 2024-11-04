@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import { addClip } from "../sidebar/slice";
-import { store } from "../sidebar/store";
+import { addClip } from "../core/slice";
+import { store } from "../core/store";
 
 export async function createClip() {
   const editor = vscode.window.activeTextEditor;

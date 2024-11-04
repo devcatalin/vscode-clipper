@@ -22,38 +22,25 @@ const formatClipForCopy = (clip: Clip): string => {
   return `${clip.message}\n\n[${displayName}](${clip.filePath})\n\`\`\`${clip.languageId}\n${clip.code}\n\`\`\``;
 };
 
-export const slice = createSlice({
+export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
     addClip: (state, action: PayloadAction<Omit<Clip, "id">>) => {
-      console.log("[Clipper] Adding clip:", action.payload);
       const newId = Math.max(...state.clips.map((clip) => clip.id), 0) + 1;
       state.clips.push({
         id: newId,
         ...action.payload,
       });
     },
-    updateClip: (state, action: PayloadAction<{ id: number; updates: Partial<Clip> }>) => {
-      console.log("[Clipper] Updating clip:", action.payload);
-      const clip = state.clips.find((c) => c.id === action.payload.id);
-      if (clip) {
-        Object.assign(clip, action.payload.updates);
-      } else {
-        console.warn("[Clipper] Clip not found for update:", action.payload.id);
-      }
-    },
     removeClip: (state, action: PayloadAction<number>) => {
-      console.log("[Clipper] Removing clip:", action.payload);
       state.clips = state.clips.filter((clip) => clip.id !== action.payload);
     },
     removeAllClips: (state) => {
-      console.log("[Clipper] Removing all clips");
       state.clips = [];
       vscode.window.showInformationMessage(`Removed all clips.`);
     },
     copyAllClips: (state) => {
-      console.log("[Clipper] Copying all clips");
       if (state.clips.length === 0) {
         vscode.window.showWarningMessage("No clips to copy.");
         return;
@@ -65,4 +52,7 @@ export const slice = createSlice({
   },
 });
 
-export const { addClip, updateClip, removeClip, removeAllClips, copyAllClips } = slice.actions;
+export type SliceActions = typeof mainSlice.actions;
+export type ActionTypes = keyof SliceActions;
+
+export const { addClip, removeClip, removeAllClips, copyAllClips } = mainSlice.actions;
