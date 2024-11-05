@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { getRelativePath } from "../core/paths";
 
 export async function copyProblemsFromOpenEditors() {
   // Get all diagnostics from the current workspace
@@ -38,8 +39,9 @@ export async function copyProblemsFromOpenEditors() {
   for (const [filePath, problems] of diagnostics) {
     const document = await vscode.workspace.openTextDocument(filePath);
     const fileName = filePath.split(/[\\/]/).pop() || filePath;
+    const relativePath = getRelativePath(filePath);
 
-    output += `## [${fileName}](${filePath})\n\n`;
+    output += `## [${fileName}](${relativePath})\n\n`;
 
     // Group problems by severity
     const errorProblems = problems.filter((p) => p.severity === vscode.DiagnosticSeverity.Error);

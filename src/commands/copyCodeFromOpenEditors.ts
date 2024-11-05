@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { getRelativePath } from "../core/paths";
 
 export async function copyCodeFromOpenEditors() {
   const openDocs = vscode.workspace.textDocuments.filter((doc) => {
@@ -20,9 +21,10 @@ export async function copyCodeFromOpenEditors() {
   for (const document of openDocs) {
     const fileName = document.fileName;
     const displayName = fileName.split(/[\\/]/).pop() || fileName;
+    const relativePath = getRelativePath(fileName);
     const fileContent = document.getText();
 
-    output += `\n[${displayName}](${fileName})\n`;
+    output += `\n[${displayName}](${relativePath})\n`;
 
     const languageId = document.languageId;
     output += "```" + languageId + "\n";
