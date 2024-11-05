@@ -2,7 +2,7 @@
   "name": "clipper",
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
-  "version": "0.0.38",
+  "version": "0.0.39",
   "engines": {
     "vscode": "^1.93.0"
   },
@@ -44,8 +44,12 @@
         "title": "Clipper: Copy File Tree with Depth"
       },
       {
-        "command": "clipper.copyOpenEditors",
-        "title": "Clipper: Copy Open Editors"
+        "command": "clipper.copyCodeFromOpenEditors",
+        "title": "Clipper: Copy Code from Open Editors"
+      },
+      {
+        "command": "clipper.copyProblemsFromOpenEditors",
+        "title": "Clipper: Copy Problems from Open Editors"
       },
       {
         "command": "clipper.createClip",
@@ -87,8 +91,12 @@
           "title": "Clipper: Copy File Tree with Depth"
         },
         {
-          "command": "clipper.copyOpenEditors",
-          "title": "Clipper: Copy Open Editors"
+          "command": "clipper.copyCodeFromOpenEditors",
+          "title": "Clipper: Copy Code from Open Editors"
+        },
+        {
+          "command": "clipper.copyProblemsFromOpenEditors",
+          "title": "Clipper: Copy Problems from Open Editors"
         },
         {
           "command": "clipper.createClip",

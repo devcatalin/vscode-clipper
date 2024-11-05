@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 
-export async function copyOpenEditors() {
+export async function copyCodeFromOpenEditors() {
   const openDocs = vscode.workspace.textDocuments.filter((doc) => {
     return (
       !doc.uri.scheme.includes("output") &&
