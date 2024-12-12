@@ -3,6 +3,7 @@
   "displayName": "Clipper",
   "description": "Copy various project elements like file trees and file contents to your clipboard.",
   "version": "0.1.0",
+  "publisher": "devcatalin",
   "engines": {
     "vscode": "^1.93.0"
   },
